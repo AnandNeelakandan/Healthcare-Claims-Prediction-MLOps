@@ -5,4 +5,4 @@ numpy
 joblib
 python-dotenv
 tensorflow
-google-generativeai
+google-generativeai==0.8.5
