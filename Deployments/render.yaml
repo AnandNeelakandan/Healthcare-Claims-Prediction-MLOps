@@ -1,0 +1,11 @@
+services:
+   -type: web
+    name: claim-prediction-api
+    env: python
+    region: singapore
+    plan: free
+    buildcommand: pip install -r requirements.text
+    startcommand: uvicorn ML_API:app --host 0.0.0.0 --port 10000
+    envVars:
+    -key: GENAI_API_KEY
+    sync: false
