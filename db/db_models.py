@@ -3,7 +3,7 @@ import os
 
 # Path to claims.db
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "..", "claims.db")
+DB_PATH = os.path.join(BASE_DIR, "claims.db")
 
 def get_connection():
     return sqlite3.connect(DB_PATH)
@@ -51,4 +51,5 @@ def get_provider_by_npi(provider_npi):
         return dict(row) if row else None
     finally:
         cursor.close()
+
         conn.close()
