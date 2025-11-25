@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Path
-from db_models import get_provider_by_npi
+from db.db_models import get_provider_by_npi
 
 router = APIRouter(prefix="/providers", tags=["Providers"])
 
