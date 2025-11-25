@@ -7,3 +7,4 @@ python-dotenv
 tensorflow
 google-generativeai==0.8.5
 mysql-connector-python
+scikit-learn
