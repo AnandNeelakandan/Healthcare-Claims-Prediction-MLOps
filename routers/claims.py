@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from db_models import get_claim_by_id
+from db.db_models import get_claim_by_id
 
 router = APIRouter(prefix="/claims", tags=["Claims"])
 
@@ -9,3 +9,4 @@ def get_claim(claim_id: str):
     if not result:
         raise HTTPException(status_code=404, detail="Claim not found")
     return result
+
