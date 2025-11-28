@@ -131,5 +131,6 @@ app.include_router(members_router)
 app.include_router(providers_router)
 
 @app.get("/")
-def read_root():
+def root():
     return {"status": "API is running"}
+
