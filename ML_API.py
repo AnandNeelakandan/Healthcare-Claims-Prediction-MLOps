@@ -1,14 +1,13 @@
-import os 
+import os
+
 # ==========================================
-#       ENVIRONMENT SETUP (Fix 1: Silence GPU Warnings)
+#   ENVIRONMENT SETUP (Disable GPU on Render)
 # ==========================================
-# These lines suppress the CUDA warnings and ensure the API uses the CPU,
-# which is required since Render's free tier does not have a GPU available.
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1' 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware # <-- NEW: For fixing Framer connection
+from fastapi.middleware.cors import CORSMiddleware
 import joblib
 import pandas as pd
 import numpy as np
@@ -21,7 +20,7 @@ from routers.members import router as members_router
 from routers.providers import router as providers_router
 
 # ==========================================
-#               GEMINI SETUP
+#               GEMINI SETUP
 # ==========================================
 from dotenv import load_dotenv
 import google.generativeai as genai
@@ -31,30 +30,24 @@ genai.configure(api_key=os.getenv("GENAI_API_KEY"))
 explain_model = genai.GenerativeModel("gemini-2.5-flash")
 
 # ==========================================
-#           INITIALIZE FASTAPI
+#           INITIALIZE FASTAPI
 # ==========================================
 app = FastAPI(title="Medical Claim Prediction API with LLM Explanation")
 
-
 # ==========================================
-#           CORS CONFIGURATION (Fix 2: Allow Framer Access)
+#        CORS (IMPORTANT FOR FRAMER)
 # ==========================================
-origins = [
-    "https://*.framer.app", # Allows ALL Framer domains to access the API
-    "http://localhost:3000", # Common local dev port
-    "http://127.0.0.1:8000" # Common local dev host
-]
-
+# Allow ALL origins including Framer hosted domains
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,              
-    allow_credentials=True,             
-    allow_methods=["GET", "POST", "OPTIONS"], 
-    allow_headers=["*"],                
+    allow_origins=["*"],          # <--- FIXED (THE MAIN PROBLEM)
+    allow_credentials=True,
+    allow_methods=["*"],          # Allow GET, POST, OPTIONS
+    allow_headers=["*"],          # Allow all headers
 )
 
 # ==========================================
-#       LOAD ANN & PREPROCESSING FILES
+#     LOAD ANN & PREPROCESS FILES
 # ==========================================
 scaler = joblib.load("scaler.pkl")
 label_encoder = joblib.load("label_encoder.pkl")
@@ -63,7 +56,7 @@ feature_columns = joblib.load("feature_columns.pkl")
 model = load_model("ann_model.keras")
 
 # ==========================================
-#             INPUT MODEL
+#             INPUT MODEL
 # ==========================================
 class ClaimInput(BaseModel):
     BilledAmount: float
@@ -76,14 +69,21 @@ class ClaimInput(BaseModel):
     PatientAgeGroup: str
 
 # ==========================================
-#              HEALTH CHECK
+#             ROOT CHECK
+# ==========================================
+@app.get("/")
+def root():
+    return {"status": "API is running"}
+
+# ==========================================
+#             HEALTH CHECK
 # ==========================================
 @app.get("/health")
 def health_check():
     return {"status": "OK", "message": "API working fine"}
 
 # ==========================================
-#               PREDICT
+#               PREDICT
 # ==========================================
 @app.post("/predict")
 def predict_claim(data: ClaimInput):
@@ -118,28 +118,23 @@ def predict_claim(data: ClaimInput):
     final_label = label_encoder.inverse_transform([pred_class])[0]
 
     # ======================================
-    #       GEMINI EXPLANATION
+    #       GEMINI EXPLANATION
     # ======================================
     explanation_prompt = f"""
-You are an AI medical claim expert.
+A medical claim prediction model returned: {final_label}.
 
-A claim prediction model returned: {final_label}.
-
-Explain the reasoning clearly in human-understandable language.
+Explain why this claim is likely {final_label}.
 If denied, list possible reasons:
-- Inactive policy
-- Out of network
-- Invalid procedure code
-- Missing documents
-- Filing delay
-- Eligibility issues
-- Duplicate claim
+- inactive policy
+- out of network
+- missing documents
+- filing delay
+- incorrect codes
+- eligibility issues
 
-If paid, explain why the claim is valid and processed.
+If paid, explain briefly why it is valid.
 
-If pending, describe what steps are needed.
-
-Keep the explanation short and realistic.
+Keep the explanation short and simple.
 """
 
     llm_response = explain_model.generate_content(explanation_prompt)
@@ -151,12 +146,8 @@ Keep the explanation short and realistic.
     }
 
 # ==========================================
-#          INCLUDE DATABASE ROUTERS
+#        INCLUDE DB ROUTERS
 # ==========================================
 app.include_router(claims_router)
 app.include_router(members_router)
 app.include_router(providers_router)
-
-@app.get("/")
-def read_root():
-    return {"status": "API is running"}
