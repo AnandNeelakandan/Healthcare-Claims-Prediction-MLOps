@@ -1,10 +1,10 @@
 # 🚀 ClaimPredict AI – End-to-End Medical Claim Status Prediction (MLOps)
 
 ### 🌐 Live Demo (Frontend – Framer)
-👉 **https://numerous-area-128663.framer.website/**
+👉 **https://numerous-area-128663.framer.website/**     (Note: API may take 30–60 seconds to wake up)
 
 ### 🧾 API Documentation (Swagger)
-👉 **https://healthcare-claims-prediction-mlops.onrender.com/docs**
+👉 **https://healthcare-claims-prediction-mlops.onrender.com/docs**     (Note: API may take 30–60 seconds to wake up)
 
 ### ⚡ Note : use the above folder called Datasets use this CSV file to enter the details and get the claim prediction
 
@@ -38,11 +38,11 @@ Users can:
 - Navigate through sections  
 
 👉 Live URL:  
-**https://numerous-area-128663.framer.website/**
+**https://numerous-area-128663.framer.website/**     (Note: API may take 30–60 seconds to wake up)
 
 ---
 
-## **2️⃣ Backend — FastAPI (Render Deployment)**
+## **2️⃣ Backend — FastAPI (Render Deployment)**     (Note: API may take 30–60 seconds to wake up)
 
 ### API Endpoints:
 - `POST /predict` → Predict claim status  
@@ -51,10 +51,10 @@ Users can:
 - `GET /providers/{npi}` → Provider lookup  
 
 👉 Swagger UI:  
-**https://healthcare-claims-prediction-mlops.onrender.com/docs**
+**https://healthcare-claims-prediction-mlops.onrender.com/docs**     (Note: API may take 30–60 seconds to wake up)
 
 👉 Base API URL:  
-**https://healthcare-claims-prediction-mlops.onrender.com/**
+**https://healthcare-claims-prediction-mlops.onrender.com/**     (Note: API may take 30–60 seconds to wake up)
 
 ---
 
