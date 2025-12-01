@@ -7,7 +7,7 @@
 👉 **https://healthcare-claims-prediction-mlops.onrender.com/docs**
 
 ### ⚡ Backend API (Render Deployment)
-👉 **https://healthcare-claims-prediction-mlops.onrender.com/**
+👉 **https://healthcare-claims-prediction-mlops.onrender.com**
 
 ---
 
