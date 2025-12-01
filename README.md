@@ -6,8 +6,7 @@
 ### 🧾 API Documentation (Swagger)
 👉 **https://healthcare-claims-prediction-mlops.onrender.com/docs**
 
-### ⚡ Backend API (Render Deployment)
-👉 **https://healthcare-claims-prediction-mlops.onrender.com**
+### ⚡ Note : use the above folder called Datasets use this CSV file to enter the details and get the claim prediction
 
 ---
 
