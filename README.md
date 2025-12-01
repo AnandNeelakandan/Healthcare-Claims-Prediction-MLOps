@@ -39,7 +39,7 @@ Users can:
 - Navigate through sections  
 
 👉 Live URL:  
-`https://YOUR-FRAMER-LINK-HERE.framer.website/`
+`https://numerous-area-128663.framer.website/`
 
 ---
 
@@ -75,8 +75,8 @@ The system uses:
 | Model | Accuracy | Notes |
 |-------|----------|------------------------------|
 | **ANN (Final Model)** | **76.20%** | Best for complex data |
-| Random Forest | 73.95% | Good generalization |
-| XGBoost | 73.40% | Robust boosting |
+| Random Forest | 74.95% | Good generalization |
+| XGBoost | 74.40% | Robust boosting |
 
 ---
 
@@ -170,7 +170,8 @@ http://localhost:8000/docs
 
 # 👤 Author: Anand Neelakandan
 AI Engineer • Machine Learning • Deep Learning • MLOps  
-GitHub: https://github.com/AnandNeelakandan  
+GitHub: https://github.com/AnandNeelakandan
+Linkedin: www.linkedin.com/in/anand-neelakandan-ab3219380
 
 ---
 
