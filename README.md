@@ -51,10 +51,10 @@ Users can:
 - `GET /providers/{npi}` → Provider lookup  
 
 👉 Swagger UI:  
-`https://healthcare-claims-prediction-mlops.onrender.com/docs`
+**https://healthcare-claims-prediction-mlops.onrender.com/docs**
 
 👉 Base API URL:  
-`https://healthcare-claims-prediction-mlops.onrender.com/`
+**https://healthcare-claims-prediction-mlops.onrender.com/**
 
 ---
 
