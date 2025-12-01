@@ -38,7 +38,7 @@ Users can:
 - Navigate through sections  
 
 👉 Live URL:  
-`https://numerous-area-128663.framer.website/`
+**https://numerous-area-128663.framer.website/**
 
 ---
 
